@@ -9,6 +9,13 @@ RSpec.describe 'making guesses', type: :request do
       end
     end
 
+    context 'with a guess of an empty string and no state' do
+      it "returns a 'bad request' response" do
+        get '/guess?guess='
+        expect(response).to have_http_status(:bad_request)
+      end
+    end
+
     context 'with a valid guess and no state' do
       it "returns an 'ok' response" do
         get '/guess?guess=1'

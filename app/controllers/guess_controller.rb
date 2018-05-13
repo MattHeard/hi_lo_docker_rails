@@ -1,21 +1,3 @@
-class Guess
-  def initialize(raw_value)
-    @raw_value = raw_value
-  end
-
-  def to_i
-    @raw_value.to_i
-  end
-
-  def nonzero?
-    to_i.nonzero?
-  end
-
-  def valid?
-    nonzero?
-  end
-end
-
 class GuessController < ApplicationController
   def evaluate
     set_response_status
@@ -24,7 +6,11 @@ class GuessController < ApplicationController
   private
 
   def set_response_status
-    head(valid_guess_given? ? :ok : :bad_request)
+    if valid_guess_given?
+      render json: {'correct?' => false, 'hint' => 'too low'}
+    else
+      head(:bad_request)
+    end
   end
 
   def valid_guess_given?

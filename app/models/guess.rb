@@ -7,7 +7,15 @@ class Guess
     valid_values.include?(integral_value)
   end
 
+  def to_i
+    raise invalid_error_message unless valid?
+
+    integral_value
+  end
+
   private
+
+  attr_reader :raw_value
 
   def valid_values
     smallest_valid_value..largest_valid_value
@@ -22,6 +30,10 @@ class Guess
   end
 
   def integral_value
-    @raw_value.to_i
+    raw_value.to_i
+  end
+
+  def invalid_error_message
+    'The guess is invalid'
   end
 end

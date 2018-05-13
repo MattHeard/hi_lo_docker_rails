@@ -26,4 +26,27 @@ RSpec.describe Guess do
       end
     end
   end
+
+  describe '#to_i' do
+    context 'when invalid' do
+      it 'raises an error' do
+        guess = Guess.new('0')
+        expect { guess.to_i }.to raise_error('The guess is invalid')
+      end
+    end
+
+    context "when the raw value is '1'" do
+      it 'returns 1' do
+        guess = Guess.new('1')
+        expect(guess.to_i).to eq 1
+      end
+    end
+
+    context "when the raw value is '2'" do
+      it 'returns 2' do
+        guess = Guess.new('2')
+        expect(guess.to_i).to eq 2
+      end
+    end
+  end
 end
